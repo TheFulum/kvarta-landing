@@ -1,26 +1,162 @@
 @import "tailwindcss";
 
+/*
+  Кварта. Цвета взяты с пакета: крафт — поле страницы, этикетка — бумага,
+  эспрессо — краска, синий — штемпель с датой обжарки. Один акцент.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --kraft: #b39069;
+  --kraft-deep: #a07d57;
+  --paper: #eeede9;
+  --paper-deep: #dfddd7;
+  --ink: #1e1915;
+  --ink-soft: #5a5048;
+  --stamp: #2241c4;
+  --stamp-ink: #ffffff;
+
+  --font-display-stack: var(--font-display), "Arial Narrow", Arial, sans-serif;
+  --font-text-stack: var(--font-text), Georgia, "Times New Roman", serif;
+
+  /* пять ступеней шрифта, не больше */
+  --step-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --step-display: min(12vw, 5.5rem);
+
+  --margin: clamp(12px, 2.2vw, 32px);
+  --section-gap: clamp(96px, 12vw, 200px);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--kraft);
+  color: var(--ink);
+  font-family: var(--font-text-stack);
+  font-size: var(--step-body);
+  line-height: 1.55;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display-stack);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--stamp);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--stamp);
+  color: var(--stamp-ink);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* единственная форма кнопки на сайте: прямые углы, плоская заливка */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 24px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-display-stack);
+  font-size: var(--step-small);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 160ms var(--ease-out);
+}
+
+.button:hover {
+  background: var(--stamp);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+/*
+  Появление при прокрутке. Разные манеры под разный материал:
+  листки календаря поднимаются по очереди, полосы свежести растут слева направо,
+  строки прайса выезжают, фото оседают из лёгкого увеличения.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    transition:
+      opacity 700ms var(--ease-out),
+      transform 900ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+
+  .js [data-reveal="rise"]:not(.is-in) {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  .js [data-reveal="row"]:not(.is-in) {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+
+  .js [data-reveal="photo"]:not(.is-in) {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+
+  .js [data-reveal="bar"] {
+    transform-origin: left center;
+    transition-duration: 300ms, 1100ms;
+    transition-delay: calc(var(--i, 0) * 160ms + 150ms);
+  }
+
+  .js [data-reveal="bar"]:not(.is-in) {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

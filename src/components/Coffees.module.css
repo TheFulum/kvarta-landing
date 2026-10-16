@@ -1,0 +1,138 @@
+/* Сорта: огромное слово «Зерно» и прайс из этикеток — тёмная плашка с ценой, под ней бумажная этикетка */
+
+.coffees {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+  padding: var(--section-gap) var(--margin) 0;
+}
+
+.column {
+  container-type: inline-size;
+  max-width: 680px;
+}
+
+.giant {
+  margin: 0 0 20px;
+  font-size: 29cqi;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding: 16px 20px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.name {
+  margin: 0;
+  font-size: var(--step-lead);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.price {
+  margin: 0;
+  font-family: var(--font-display-stack);
+  font-size: var(--step-lead);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.weight {
+  font-family: var(--font-text-stack);
+  font-size: var(--step-body);
+}
+
+.label {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px 24px;
+  align-items: end;
+  padding: 20px;
+  background: var(--paper);
+}
+
+.notes {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: var(--step-lead);
+  line-height: 1.25;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+  margin: 0;
+}
+
+.facts dt {
+  font-size: var(--step-small);
+  color: var(--ink-soft);
+}
+
+.facts dd {
+  margin: 2px 0 0;
+}
+
+.figure {
+  position: sticky;
+  top: 24px;
+  margin: 0;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .coffees {
+    grid-template-columns: 1fr;
+  }
+
+  .column {
+    max-width: none;
+  }
+
+  .figure {
+    position: static;
+  }
+
+  .photo {
+    aspect-ratio: 16 / 11;
+  }
+}
+
+@media (max-width: 560px) {
+  .label {
+    grid-template-columns: 1fr;
+  }
+
+  .facts {
+    grid-template-columns: 1fr;
+  }
+
+  .order {
+    width: 100%;
+  }
+}

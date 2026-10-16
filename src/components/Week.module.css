@@ -1,0 +1,228 @@
+/* Неделя обжарки: календарь из листков, четверг — главный, сегодняшний день отмечен штемпелем */
+
+.week {
+  padding: var(--section-gap) var(--margin) 0;
+}
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 24px 48px;
+  align-items: end;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--step-head);
+}
+
+.now {
+  max-width: 34ch;
+  margin: 0;
+  font-size: var(--step-lead);
+  line-height: 1.35;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 2.3fr 1.7fr 1fr 1fr;
+  gap: 8px;
+  margin: 56px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  min-height: 380px;
+  padding: 18px 16px 20px;
+}
+
+.plain,
+.delivery {
+  background: var(--paper);
+}
+
+.weekend {
+  background: var(--paper-deep);
+}
+
+.roast {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.dayHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.dayShort {
+  font-family: var(--font-display-stack);
+  font-size: var(--step-head);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.todayTag {
+  padding: 4px 8px 5px;
+  background: var(--stamp);
+  color: var(--stamp-ink);
+  font-family: var(--font-display-stack);
+  font-size: var(--step-small);
+  line-height: 1.1;
+  transform: rotate(-4deg);
+}
+
+.dayTitle {
+  margin: 0;
+  font-size: var(--step-body);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.dayDate {
+  margin: 0;
+  font-family: var(--font-display-stack);
+  font-size: var(--step-lead);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.roast .dayDate {
+  color: var(--paper);
+}
+
+.dayText {
+  margin: 0;
+  line-height: 1.4;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.dayPhoto {
+  width: 100%;
+  height: auto;
+  margin-top: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+/* Полоса свежести */
+
+.fresh {
+  margin-top: 8px;
+  padding: clamp(24px, 4vw, 56px);
+  background: var(--paper);
+}
+
+.freshTitle {
+  margin: 0;
+  font-size: var(--step-lead);
+  letter-spacing: -0.02em;
+}
+
+.scale {
+  display: flex;
+  gap: 6px;
+  margin: 28px 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  flex: var(--grow, 1) 1 0;
+  min-width: 0;
+}
+
+.stepBar {
+  height: 18px;
+  background: var(--kraft);
+}
+
+.step[data-step="0"] .stepBar {
+  background: var(--ink);
+}
+
+.step[data-step="1"] .stepBar {
+  background: var(--stamp);
+}
+
+.step[data-step="2"] .stepBar {
+  background: var(--kraft-deep);
+}
+
+.stepDays {
+  font-family: var(--font-display-stack);
+  font-size: var(--step-lead);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepLabel {
+  font-size: var(--step-small);
+  line-height: 1.3;
+}
+
+.freshNote {
+  max-width: 62ch;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .head {
+    grid-template-columns: 1fr;
+  }
+
+  .days {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-top: 32px;
+  }
+
+  .day {
+    gap: 6px;
+    min-height: 0;
+    padding: 16px 16px 18px;
+  }
+
+  .dayTitle {
+    font-size: var(--step-lead);
+  }
+
+  .dayText {
+    font-size: var(--step-body);
+  }
+
+  .dayPhoto {
+    aspect-ratio: 16 / 10;
+    margin-top: 8px;
+  }
+
+  .scale {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .step {
+    flex: none;
+    grid-template-columns: 18px 56px minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 12px;
+  }
+
+  .stepBar {
+    width: 18px;
+    height: 18px;
+    align-self: center;
+  }
+}

@@ -14,10 +14,28 @@ const text = Source_Serif_4({
   style: ["normal", "italic"],
 });
 
+const title = "Кварта — обжарка кофе в Минске по четвергам";
+const description =
+  "Маленькая обжарка в Минске. Жарим по четвергам партиями по 5 кг, в пятницу развозим по городу: зерно приходит на 1–3 день после обжарки. Пачка 250 г от 26 BYN, подписка 54 BYN в месяц.";
+
+// На Vercel адрес продакшена приходит из окружения; от него строятся абсолютные ссылки превью
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "Кварта — обжарка кофе в Минске по четвергам",
-  description:
-    "Маленькая обжарка в Минске. Жарим по четвергам партиями по 5 кг, в пятницу развозим по городу: зерно приходит на 1–3 день после обжарки.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    siteName: "Кварта",
+    title,
+    description,
+    url: "/",
+  },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 const revealBootstrap =

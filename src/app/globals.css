@@ -13,6 +13,7 @@
   --ink-soft: #5a5048;
   --stamp: #2241c4;
   --stamp-ink: #ffffff;
+  --error: #a8261c;
 
   --font-display-stack: var(--font-display), "Arial Narrow", Arial, sans-serif;
   --font-text-stack: var(--font-text), Georgia, "Times New Roman", serif;
@@ -79,6 +80,15 @@ a {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+@media (min-width: 901px) and (min-height: 720px) {
+  .sheet {
+    position: relative;
+    z-index: 1;
+    padding-bottom: var(--section-gap);
+    background: var(--kraft);
+  }
 }
 
 /* единственная форма кнопки на сайте: прямые углы, плоская заливка */

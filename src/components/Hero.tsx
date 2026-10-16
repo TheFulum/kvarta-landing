@@ -28,7 +28,7 @@ export function Hero() {
             <a href="#zerno">Зерно</a>
           </li>
           <li>
-            <a href="#nedelya">Неделя</a>
+            <a href="#podpiska">Подписка</a>
           </li>
           <li>
             <a href="#dostavka">Доставка</a>

@@ -84,7 +84,7 @@ export function Week() {
         })}
       </ol>
 
-      <div className={s.fresh} id="dostavka">
+      <div className={s.fresh}>
         <h3 className={s.freshTitle}>Дни после обжарки</h3>
         <ol className={s.scale}>
           {freshness.map((f, i) => (

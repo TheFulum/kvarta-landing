@@ -1,0 +1,132 @@
+/* Заявка — купон на отрыв: корешок с заголовком, перфорация из точек, форма */
+
+.contact {
+  overflow: clip; /* вырезы купона выходят за край на телефоне */
+  padding: var(--section-gap) var(--margin) 0;
+}
+
+.coupon {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  max-width: 1240px;
+  margin: 0 auto;
+  background: var(--paper);
+  scroll-margin-top: 24px;
+}
+
+.stub {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  padding: clamp(28px, 4vw, 56px);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.5rem, 1.6rem + 3.2vw, 4.25rem);
+  text-transform: uppercase;
+}
+
+.note {
+  max-width: 36ch;
+  margin: 0;
+}
+
+/* перфорация: пунктир из круглых точек цвета крафта и два выреза по краям */
+.body {
+  position: relative;
+  padding: clamp(28px, 4vw, 56px);
+  border-left: 6px dotted var(--kraft);
+}
+
+.body::before,
+.body::after {
+  content: "";
+  position: absolute;
+  left: -17px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--kraft);
+}
+
+.body::before {
+  top: -14px;
+}
+
+.body::after {
+  bottom: -14px;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 48px;
+  max-width: 1240px;
+  margin: 72px auto 0;
+}
+
+.info p {
+  margin: 8px 0 0;
+}
+
+.infoTitle {
+  margin: 0;
+  font-size: var(--step-lead);
+  letter-spacing: -0.02em;
+}
+
+.link {
+  display: inline-block;
+  margin-top: 10px;
+  text-underline-offset: 4px;
+}
+
+.link:hover,
+.phone:hover {
+  color: var(--stamp);
+}
+
+.phone {
+  font-family: var(--font-display-stack);
+  font-size: var(--step-lead);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+  .coupon {
+    grid-template-columns: 1fr;
+  }
+
+  .stub {
+    gap: 16px;
+  }
+
+  .body {
+    border-left: 0;
+    border-top: 6px dotted var(--kraft);
+  }
+
+  .body::before,
+  .body::after {
+    top: -17px;
+    bottom: auto;
+  }
+
+  .body::before {
+    left: -14px;
+  }
+
+  .body::after {
+    left: auto;
+    right: -14px;
+  }
+
+  .info {
+    grid-template-columns: 1fr;
+    margin-top: 48px;
+  }
+}

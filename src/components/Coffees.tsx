@@ -32,7 +32,13 @@ export function Coffees() {
                     <dd>{c.brew}</dd>
                   </div>
                 </dl>
-                <a className={`button ${s.order}`} href="#zayavka">
+                <a
+                  className={`button ${s.order}`}
+                  href="#zayavka"
+                  data-lead-interest="order"
+                  data-lead-coffee={c.id}
+                  aria-label={`Заказать: ${c.name}`}
+                >
                   Заказать
                 </a>
               </div>

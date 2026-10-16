@@ -1,0 +1,54 @@
+/* О нас — письмо основателей на листе с фигурным краем и отрывной полосой с адресом */
+
+.about {
+  padding: var(--section-gap) var(--margin) 0;
+}
+
+.sheet {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 60px) clamp(22px, 6vw, 60px) 0;
+  background: var(--paper);
+  font-size: var(--step-body);
+  line-height: 1.6;
+}
+
+.sheet > p {
+  margin: 0 0 1.1em;
+}
+
+.mark {
+  padding: 0.05em 0.2em;
+  background: color-mix(in srgb, var(--kraft) 45%, var(--paper));
+  color: inherit;
+}
+
+.sign {
+  margin-top: 28px;
+}
+
+.sign p {
+  margin: 0;
+}
+
+.names {
+  font-size: var(--step-lead);
+  font-style: italic;
+}
+
+.role {
+  font-size: var(--step-small);
+  color: var(--ink-soft);
+}
+
+/* ряд круглых точек и отрывная полоса */
+.strip {
+  margin: 40px calc(-1 * clamp(22px, 6vw, 60px)) 0;
+  padding: 22px clamp(22px, 6vw, 60px) 26px;
+  border-top: 6px dotted var(--kraft);
+  background: var(--paper-deep);
+}
+
+.strip p {
+  margin: 0;
+}

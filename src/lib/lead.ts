@@ -3,23 +3,10 @@
 
 import { z } from "zod";
 import { checkByPhone } from "./phone";
+import { LEAD_FIELDS, leadMessages, type FieldErrors, type Interest, type LeadField } from "./lead-shared";
 
-export const INTERESTS = {
-  subscription: "Подписка",
-  order: "Разовый заказ",
-  question: "Вопрос",
-} as const;
-export type Interest = keyof typeof INTERESTS;
-
-export const leadMessages = {
-  name: "Напишите, как к вам обращаться",
-  interest: "Выберите, что вас интересует",
-  comment: "Комментарий длинноват: уложитесь в 1000 знаков",
-};
-
-export const LEAD_FIELDS = ["name", "phone", "interest", "comment"] as const;
-export type LeadField = (typeof LEAD_FIELDS)[number];
-export type FieldErrors = Partial<Record<LeadField, string>>;
+export { INTERESTS, LEAD_FIELDS, leadMessages } from "./lead-shared";
+export type { FieldErrors, Interest, LeadField } from "./lead-shared";
 
 const short = z.string().trim().max(300).optional();
 const url = z.string().trim().max(2000).optional();

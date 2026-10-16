@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  experimental: {
+    // CSS ~9 КБ встраиваем в HTML: посетители из рекламы почти все новые, лишний запрос им дороже кэша
+    inlineCss: true,
+  },
   turbopack: {
     rules: {
       "*.css": {

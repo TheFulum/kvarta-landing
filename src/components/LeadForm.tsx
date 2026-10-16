@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { checkByPhone } from "@/lib/phone";
-import { INTERESTS, leadMessages, type FieldErrors, type Interest, type LeadField } from "@/lib/lead";
+import { INTERESTS, leadMessages, type FieldErrors, type Interest, type LeadField } from "@/lib/lead-shared";
 import { readAttribution, rememberTouch } from "@/lib/attribution";
 import { coffees, contacts } from "@/content/site";
 import s from "./LeadForm.module.css";

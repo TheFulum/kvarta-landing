@@ -8,10 +8,10 @@ const display = Libre_Franklin({
   weight: "700",
 });
 
+// без курсива: он нужен был только для подписи в письме, а это ещё два файла шрифта на старте
 const text = Source_Serif_4({
   variable: "--font-text",
   subsets: ["cyrillic", "latin"],
-  style: ["normal", "italic"],
 });
 
 const title = "Кварта — обжарка кофе в Минске по четвергам";

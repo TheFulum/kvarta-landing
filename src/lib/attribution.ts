@@ -1,7 +1,7 @@
 // Откуда пришёл клиент. При входе на сайт запоминаем метки рекламы, при отправке формы
 // прикладываем к заявке: первое касание (30 дней) и последнее (реклама, которая привела сейчас).
 
-import type { Attribution, Touch } from "./lead";
+import type { Attribution, Touch } from "./lead"; // только типы: zod в браузер не попадает
 
 export const TRACKED_PARAMS = [
   "utm_source",

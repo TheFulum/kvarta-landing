@@ -34,8 +34,8 @@ export function Contact() {
         <div data-reveal="rise" style={{ ["--i" as string]: 1 }}>
           <h3 className={s.infoTitle}>Самовывоз</h3>
           <p>
-            {contacts.address}. {contacts.hoursWeekdays}, {contacts.hoursWeekend}. Свежую партию можно забрать
-            с&nbsp;пятницы.
+            {contacts.address}. Открыто {contacts.hoursWeekdays}, {contacts.hoursWeekend}. Свежую партию можно
+            забрать с&nbsp;пятницы.
           </p>
           <a className={s.link} href={mapHref} target="_blank" rel="noopener">
             Открыть на&nbsp;карте
@@ -48,9 +48,7 @@ export function Contact() {
               {contacts.phone}
             </a>
           </p>
-          <p className={s.hours}>
-            {contacts.hoursWeekdays}, {contacts.hoursWeekend}
-          </p>
+          <p>Менеджер перезванивает по&nbsp;заявкам в&nbsp;часы работы мастерской.</p>
         </div>
       </div>
     </section>

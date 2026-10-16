@@ -24,17 +24,14 @@ export default async function Home() {
 
   return (
     <ScheduleProvider initial={initial}>
-      {/* «Занавес»: на широком экране страница уезжает вверх и открывает подвал под собой */}
-      <div className="sheet">
-        <Hero />
-        <main>
-          <Week />
-          <Coffees />
-          <Subscription />
-          <About />
-          <Contact />
-        </main>
-      </div>
+      <Hero />
+      <main>
+        <Week />
+        <Coffees />
+        <Subscription />
+        <About />
+        <Contact />
+      </main>
       <Footer />
       <StickyCta />
       <RevealObserver />

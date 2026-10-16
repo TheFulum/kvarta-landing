@@ -10,8 +10,9 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const fontsDir = join(process.cwd(), "assets/fonts");
-const franklin = readFile(join(fontsDir, "LibreFranklin-Bold.ttf"));
-const serif = readFile(join(fontsDir, "SourceSerif4-Regular.ttf"));
+// читаем на уровне модуля: тогда картинка пререндерится при сборке, а не на каждый запрос
+const franklin = await readFile(join(fontsDir, "LibreFranklin-Bold.ttf"));
+const serif = await readFile(join(fontsDir, "SourceSerif4-Regular.ttf"));
 
 const KRAFT = "#b39069";
 const PAPER = "#eeede9";
@@ -94,8 +95,8 @@ export default async function Image() {
     {
       ...size,
       fonts: [
-        { name: "Franklin", data: await franklin, weight: 700, style: "normal" },
-        { name: "Serif", data: await serif, weight: 400, style: "normal" },
+        { name: "Franklin", data: franklin, weight: 700, style: "normal" },
+        { name: "Serif", data: serif, weight: 400, style: "normal" },
       ],
     },
   );

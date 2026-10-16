@@ -6,8 +6,9 @@ export const contacts = {
   phone: "+375 29 000-00-00",
   phoneHref: "tel:+375290000000",
   address: "Минск, ул. Короля, 9",
-  hoursWeekdays: "пн–пт 8:00–20:00",
-  hoursWeekend: "сб–вс 10:00–18:00",
+  // U+2060 после тире не даёт переносу разорвать часы
+  hoursWeekdays: "пн–⁠пт 8:00–⁠20:00",
+  hoursWeekend: "сб–⁠вс 10:00–⁠18:00",
   freeDeliveryFrom: 50,
 };
 

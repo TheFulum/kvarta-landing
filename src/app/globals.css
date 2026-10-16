@@ -82,15 +82,6 @@ a {
   white-space: nowrap;
 }
 
-@media (min-width: 901px) and (min-height: 720px) {
-  .sheet {
-    position: relative;
-    z-index: 1;
-    padding-bottom: var(--section-gap);
-    background: var(--kraft);
-  }
-}
-
 /* единственная форма кнопки на сайте: прямые углы, плоская заливка */
 .button {
   display: inline-flex;

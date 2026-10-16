@@ -4,17 +4,6 @@
   padding: var(--section-gap) 10px 16px;
 }
 
-/* «занавес»: подвал стоит на месте, страница уезжает с него вверх */
-@media (min-width: 901px) and (min-height: 720px) {
-  .footer {
-    position: sticky;
-    bottom: 0;
-    z-index: 0;
-    padding-top: 10px;
-    background: var(--kraft-deep);
-  }
-}
-
 .tiles {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));

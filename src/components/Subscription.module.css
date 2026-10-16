@@ -133,6 +133,7 @@
   }
 
   .stub {
+    padding-top: 52px;
     border-left: 0;
     border-top: 6px dotted var(--ink);
   }

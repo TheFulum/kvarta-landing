@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Кварта — лендинг обжарки
 
-## Getting Started
+<!-- ЧЕРНОВИК: раздел «Что делал я, а что ИИ» перепиши своими словами перед отправкой -->
 
-First, run the development server:
+**Сайт:** https://kvarta-landing-hitr.vercel.app · **Lighthouse, мобильный:** Performance 94 · Accessibility 100 · Best Practices 100 · SEO 100 (LCP 2,6 с, TBT 100 мс, CLS 0), отчёт в [`docs/lighthouse/mobile.report.html`](docs/lighthouse/mobile.report.html) · **Лог работы с ИИ:** экспорт сессии Claude Code, приложен отдельно
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Next.js 16 (App Router), TypeScript, CSS-модули, Vercel, Neon Postgres, Vitest. Запуск: `npm i && npm run dev`. Без `DATABASE_URL` заявки пишутся в память процесса. Тесты: `npm test`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Проверено на проде: новая заявка → 201, повтор номера → «уже есть», два одновременных запроса → одна заявка, заявка через форму со ссылки с UTM-метками принимается. Что метки сохраняются в колонки, проверено тестами и локально.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Что внутри
+- **Идея дизайна.** «Кварта» значит «четвёртая», а обжарка — в четверг, четвёртый день недели. Страница сделана как пакет кофе: крафт, бумажная этикетка, синий штемпель с датой. На первом экране живая дата ближайшей партии, ниже неделя обжарки с отметкой «сегодня».
+- **Телефон.** Мобильные и городские номера РБ в любом написании (`+375…`, `8 029…`, `29 123 45 67`). Проверка общая для браузера и сервера, а тесты сверяют её с libphonenumber.
+- **Дубли.** Заявка и «замок» на номер пишутся одним SQL-выражением (`INSERT … ON CONFLICT … WHERE замок истёк`). Двойной клик или повтор номера в течение 10 минут не создают вторую заявку, а человек видит «заявка уже у нас». Проверено на PGlite тем же SQL.
+- **Откуда клиент.** UTM-метки, `yclid` / `fbclid` / `gclid`, страница входа, внешний referrer и страница отправки. Хранятся первое касание (30 дней) и последнее.
+- **Ошибки.** Свои тексты для нет сети, таймаута, недоступного сервера и 5xx. Данные остаются в форме, рядом запасной телефон.
+- **Бонусы.** Превью ссылки (этикетка 1200×630 через `next/og`) и анимации только на transform/opacity с учётом `prefers-reduced-motion`. Telegram-бот отложен.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Почему Neon Postgres
+На Vercel файловая система временная, поэтому файл или SQLite в проекте потеряют заявки. Postgres даёт атомарную защиту от дублей одним запросом. Neon подключается из панели Vercel, `DATABASE_URL` подставляется сам, а схема применяется при сборке (`scripts/migrate.mjs`). База и функции стоят во Франкфурте: ближе к Минску и персональные данные остаются в ЕС. Cloudflare + D1 рассматривали: для Next.js там нужен адаптер OpenNext, сборка на Windows не гарантируется и картинки придётся настраивать отдельно.
 
-## Learn More
+## Что делал я, а что ИИ
+Я ставил задачи и принимал решения: направление дизайна (этикетка + блок недели), стек Vercel + Neon вместо Cloudflare, приём мобильных и городских номеров, объём бонусов, требование брать только фото со свободной лицензией. Ещё я попросил исследовать сайты обжарок и поведение покупателей до вёрстки и проверял превью. Код, тексты, подбор фото и проверки делал Claude Code в одной сессии, коммитами по шагам.
 
-To learn more about Next.js, take a look at the following resources:
+## Где ИИ ошибся и как это заметили
+1. Подпись «от 18 BYN за 250 г»: минимальная цена взялась с дрип-пакетов, которые продаются по 10 штук. Заметили на скриншоте.
+2. Правило Tailwind из шаблона create-next-app превращало CSS-модули в глобальные стили, и вёрстка не применялась. Нашли по предупреждению `next/image` в логах.
+3. PowerShell сохранил файлы в cp1251, и кириллица превратилась в «кракозябры». Увидели в диффе и перекодировали обратно.
+4. Штемпель на десктопе налезал на заголовок. Инспектор не поймал, заметили глазами на скриншоте.
+5. Эффект «занавес» в подвале оставлял подвал под всей страницей. Нашёл инспектор, эффект убрали.
+6. Картинка превью генерировалась на каждый запрос вместо сборки. Заметили по выводу `next build`.
+7. Форма тянула в браузер zod, потому что тексты ошибок лежали в одном модуле со схемой. Плюс `aria-label` на абзаце и 16-секундный наезд на фото, который портил Speed Index. Нашли по Lighthouse на проде: после правок Performance вырос с 85 до 94, Accessibility — с 97 до 100.
+8. В ТЗ скрыта ловушка: две пачки Бразилии (52 BYN) дешевле подписки (54 BYN). Поэтому на сайте нет фразы «подписка выгоднее».
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Допущения
+Заявки на партию — до среды 20:00. Самовывоз свежей партии — с пятницы. Доставку дешевле 50 BYN рассчитывает менеджер. Условия подписки: выбор сорта, пауза и отмена по звонку. Способы заваривания для каждого сорта придуманы. Телефона в ТЗ нет, поэтому стоит заглушка `+375 29 000-00-00`: такого номера не существует. Фото — Unsplash, авторы указаны в подвале.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Не успели / сделали бы иначе
+Нет страницы для менеджера и Telegram-бота: заявки пока видно только в консоли Neon. Нет ограничения частоты запросов по IP, от спама защищает только скрытое поле-ловушка. Нет e2e-тестов (Playwright), видео и настоящих фото мастерской. На телефоне плавающая кнопка заявки при прокрутке на мгновение перекрывает заголовки. Это сознательный компромисс ради заявок.

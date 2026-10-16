@@ -15,8 +15,9 @@
   object-position: 30% 40%;
 }
 
-/* медленный наезд на фото, пока читают этикетку */
-@media (prefers-reduced-motion: no-preference) {
+/* медленный наезд на фото, пока читают этикетку. Только на широком экране:
+   на телефоне фото почти закрыто этикеткой, а постоянно меняющийся кадр портит Speed Index */
+@media (prefers-reduced-motion: no-preference) and (min-width: 721px) {
   .photo {
     animation: drift 16s var(--ease-out) both;
   }
